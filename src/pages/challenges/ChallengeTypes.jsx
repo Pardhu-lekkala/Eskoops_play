@@ -659,7 +659,7 @@ const ChallengeTypes = (props) => {
     );
   } else if (props.item.challange_type === "radio") {
     return (
-      <div style={{ marginLeft: "15%", width: "100%" }}>
+      <div style={{ width: "100%",display:"flex",flexDirection:"row",justifyContent:"center", flexWrap:"wrap",width:"100%"}}>
         {/* <Typography>{props.item.challenge_detail.split('<p>')[1].split('</p>')[0]}</Typography> */}
         {/* <div dangerouslySetInnerHTML={{__html: props.item.challenge_detail}}></div> */}
         <FormControl component="fieldset" error={errorRadio}>
@@ -672,7 +672,8 @@ const ChallengeTypes = (props) => {
               handleChange(event, props.item.challenge_id, props.item.game_id)
             }
           >
-            <div style={{display:"flex",flexDirection:"row",flexWrap:"wrap",width:"800px"}}>
+            
+            <div style={{display:"flex",flexDirection:"row",justifyContent:"center", flexWrap:"wrap",width:"1000px"}}>
             { props.item.challange_option ?
             props.item.challange_option.map((item,index) => {
             console.log(props.item.challange_option,"this is item")
@@ -683,7 +684,7 @@ const ChallengeTypes = (props) => {
                 backgroundColor:colors[index],
                  borderRadius:"30px",
                  marginBottom:"10px",
-                 width:"330px",
+                 width:"450px",
                  margin:"10px",
                  border:"3px solid silver",
                  paddingLeft:"10px",
@@ -701,12 +702,13 @@ const ChallengeTypes = (props) => {
 
           }
           </div>
+          
           </RadioGroup>
           <FormHelperText>
             {errorRadio ? "Please select an option" : ""}
           </FormHelperText>
         </FormControl>
-        <Grid container spacing={2} style={{display:"flex",justifyContent:"center",paddingRight:"15%"}}>
+        <Grid container spacing={2} style={{display:"flex",justifyContent:"center"}}>
           <Grid item>
             {" "}
             <Button
