@@ -28,7 +28,7 @@ const LeaderBoard = (props) => {
   let res=parseInt(val[0])/parseInt(val[1])*100
   console.log(val,typeof(val))
   console.log(res,"res")
-  return <p>{ `(${Math.round(res)}%`}</p>
+  return <p>{ `(${Math.round(res)}%)`}</p>
 
  }
 

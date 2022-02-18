@@ -240,7 +240,7 @@ const Profile = (props) => {
               hidden
             />
             </Typography>
-             <Typography style={{fontSize:'14px', marginTop: '24px'}}>Your Name</Typography>
+             <Typography style={{fontSize:'14px', marginTop: '24px'}}>Name/Team Number</Typography>
              <TextField id="outlined-basic"  variant="outlined" autoComplete='off' style={{width:'100%'}}
               onChange ={(e)=>{setUserName(e.target.value.trim());setError(false)}} helperText={error ? "Please enter your name" : ''} error={error}
               onKeyPress=  {(e) =>{
@@ -300,7 +300,7 @@ const Profile = (props) => {
               hidden
             />
               </Typography>
-              <Typography style={{fontSize:'14px', marginTop: '24px'}}>Your Name</Typography>
+              <Typography style={{fontSize:'14px', marginTop: '24px'}}>Name/Team Number</Typography>
               <TextField id="outlined-basic"  variant="outlined" autoComplete='off' style={{width:'95%'}}
               onChange ={(e)=>{setUserName(e.target.value.trim());setError(false)}} helperText={error ? "Please enter your name" : ''} error={error}
               onKeyPress=  {(e) =>{

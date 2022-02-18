@@ -256,6 +256,7 @@ const Challenges = (props) => {
 
   const [challengeScroll, setChallengeScroll] = React.useState(0);
   const [wallOfFameScroll, setWallOfFameScroll] = React.useState(0);
+  
 
   const [open, setOpen] = React.useState(false);
   const handleClose = () => {
@@ -1185,6 +1186,7 @@ const Challenges = (props) => {
                 </Hidden> */}
 
                 {challengesData.map((item, i = 1) => {
+                  
                   if (selectedBtn === 2 && challengesStatus[i] === "1") {
                     //Unanswered
                     //condition = false;
@@ -1208,7 +1210,8 @@ const Challenges = (props) => {
                         classes={{ root: classes.MuiAccordionroot }}
                         //className="challegesRoot"
                         style={{
-                          maxWidth: 1045,
+                          maxWidth: "100%",
+                          //maxWidth: 1045,
                           margin: "0px auto",
                           //background:item.challenge_points === "0" ? "#FE7300" : "",
                           border:

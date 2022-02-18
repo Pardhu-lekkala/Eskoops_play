@@ -464,7 +464,7 @@ const WallOfFame = (props) => {
               {/* {openCamera  ? "" : <CameraAltIcon color="action" onClick={() => photoCamera()} />} */}
             </Typography>
             <Typography style={{ fontSize: "14px", marginTop: "24px" }}>
-              Your Name
+            Name/Team Number
             </Typography>
             <TextField
               id="outlined-basic"
