@@ -1,0 +1,46 @@
+.time-left-container {
+  position: fixed;
+  right: 0px;
+  top: 50%;
+  height: 30px;
+  padding: 10px;
+  background-color: #fe7300;
+  z-index: 10000;
+  border-radius: 40px 0 0 40px;
+  box-shadow: 0 2px 9px 0px #ffab66, 0 2px 9px 0px #cccccc99;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.time-left-time {
+  font-size: 15px;
+  font-weight: 900;
+  color: white;
+}
+.time-left-colon {
+  animation: colonAnimation 1s linear infinite;
+}
+
+@keyframes colonAnimation {
+  0% {
+    opacity: 1;
+  }
+  49% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  99% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .time-left-container {
+    top: 70%;
+  }
+}
