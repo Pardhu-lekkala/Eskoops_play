@@ -23,47 +23,47 @@ const LeaderBoard = (props) => {
   console.log(leaderboardData[1],"sss")
   //let val=leaderboardData[1]["current-state"].split("/")
 
-  function percentage(value){
-    console.log(value,"val")
-    let val=value.split("/")
-    console.log(val,"split")
-    let res=parseInt(val[0])/parseInt(val[1])*100
-    console.log(val,typeof(val))
-    console.log(res,"percent")
-    //return <p>{ `(${Math.round(res)}%)`}</p>
-    let percent=Math.round(res)
-    return String(percent)
+//   function percentage(value){
+//     console.log(value,"val")
+//     let val=value.split("/")
+//     console.log(val,"split")
+//     let res=parseInt(val[0])/parseInt(val[1])*100
+//     console.log(val,typeof(val))
+//     console.log(res,"percent")
+//     //return <p>{ `(${Math.round(res)}%)`}</p>
+//     let percent=Math.round(res)
+//     return String(percent)
   
-   }
+//    }
   
- function percentage1(){
-  console.log((leaderboardData[1]["current-state"]),"data")
-  let val=leaderboardData[1]["current-state"].split("/")
-  let res=parseInt(val[0])/parseInt(val[1])*100
-  console.log(val,typeof(val))
-  console.log(res,"res")
-  return <p>{ `(${Math.round(res)}%)`}</p>
+//  function percentage1(){
+//   console.log((leaderboardData[1]["current-state"]),"data")
+//   let val=leaderboardData[1]["current-state"].split("/")
+//   let res=parseInt(val[0])/parseInt(val[1])*100
+//   console.log(val,typeof(val))
+//   console.log(res,"res")
+//   return <p>{ `(${Math.round(res)}%)`}</p>
 
- }
+//  }
 
- function percentage2(){
-  console.log((leaderboardData[0]["current-state"]),"data")
-  let val=leaderboardData[0]["current-state"].split("/")
-  let res=parseInt(val[0])/parseInt(val[1])*100
-  console.log(val,typeof(val))
-  console.log(res,"res")
-  return <p>{ `(${Math.round(res)}%)`}</p>
+//  function percentage2(){
+//   console.log((leaderboardData[0]["current-state"]),"data")
+//   let val=leaderboardData[0]["current-state"].split("/")
+//   let res=parseInt(val[0])/parseInt(val[1])*100
+//   console.log(val,typeof(val))
+//   console.log(res,"res")
+//   return <p>{ `(${Math.round(res)}%)`}</p>
 
- }
+//  }
 
- function percentage3(){
-  console.log((leaderboardData[2]["current-state"]),"data")
-  let val=leaderboardData[2]["current-state"].split("/")
-  let res=parseInt(val[0])/parseInt(val[1])*100
-  console.log(val,typeof(val))
-  console.log(res,"res")
-  return <p>{ `(${Math.round(res)}%)`}</p>
- }
+//  function percentage3(){
+//   console.log((leaderboardData[2]["current-state"]),"data")
+//   let val=leaderboardData[2]["current-state"].split("/")
+//   let res=parseInt(val[0])/parseInt(val[1])*100
+//   console.log(val,typeof(val))
+//   console.log(res,"res")
+//   return <p>{ `(${Math.round(res)}%)`}</p>
+//  }
   
   
  
@@ -225,8 +225,8 @@ const LeaderBoard = (props) => {
                       <Typography
                         style={{ color: "orange", textAlign: "center",fontSize:"14px"}}
                       >
-                        {`(${leaderboardData[1]["current-state"]})`}
-                        {percentage1()}
+                        {`Round(${leaderboardData[1]["current-state"]})`}
+                        {/* {percentage1()} */}
                       </Typography>
                     </Grid>
                   )}
@@ -309,8 +309,8 @@ const LeaderBoard = (props) => {
                         <Typography
                         style={{ color: "orange", textAlign: "center",fontSize:"14px"}}
                       >
-                        {`(${leaderboardData[0]["current-state"]}) `}
-                        {percentage2()}
+                        {`Round(${leaderboardData[0]["current-state"]}) `}
+                        {/* {percentage2()} */}
                       </Typography>
                       </Grid>
                     </Grid>
@@ -385,8 +385,8 @@ const LeaderBoard = (props) => {
                       <Typography
                         style={{ color: "orange", textAlign: "center",fontSize:"14px"}}
                       >
-                        {`(${leaderboardData[2]["current-state"]}) `}
-                        {percentage3()}
+                        {`Round(${leaderboardData[2]["current-state"]}) `}
+                        {/* {percentage3()} */}
                       </Typography>
                     </Grid>
                   )}
@@ -512,11 +512,11 @@ const LeaderBoard = (props) => {
                             paddingRight: !matches ? "20px" : "0px",
                           }}
                         > 
-                        <span style={{color:"#64db4f",fontSize:"12px"}}>
+                        {/* <span style={{color:"#64db4f",fontSize:"12px"}}>
                           {item["current-state"] !== undefined ?`(${percentage(item['current-state'])}%) `:"(0%) "}    
-                          </span>
+                          </span> */}
                            <span style={{color:"orange",fontSize:"12px"}}>
-                          {item["current-state"] !== undefined ?`(${item['current-state']}) `:"(0) "}                               
+                          {item["current-state"] !== undefined ?`Round(${item['current-state']}) `:"(0) "}                               
                           </span>
                           {item.team_points} Pts
                         </Typography>
