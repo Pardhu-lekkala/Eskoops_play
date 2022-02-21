@@ -659,7 +659,7 @@ const ChallengeTypes = (props) => {
     );
   } else if (props.item.challange_type === "radio") {
     return (
-      <div style={{ width: "100%",display:"flex",flexDirection:"row",justifyContent:"center", flexWrap:"wrap",width:"100%"}}>
+      <div style={{ marginLeft: "1%", width: "100%",display:"flex",flexDirection:"row",justifyContent:"center", flexWrap:"wrap",width:"100%"}}>
         {/* <Typography>{props.item.challenge_detail.split('<p>')[1].split('</p>')[0]}</Typography> */}
         {/* <div dangerouslySetInnerHTML={{__html: props.item.challenge_detail}}></div> */}
         <FormControl component="fieldset" error={errorRadio}>
@@ -673,7 +673,7 @@ const ChallengeTypes = (props) => {
             }
           >
             
-            <div style={{display:"flex",flexDirection:"row",justifyContent:"center", flexWrap:"wrap",width:"1000px"}}>
+            <div style={{display:"flex",flexDirection:"row",justifyContent:"center", flexWrap:"wrap",width:"100%"}}>
             { props.item.challange_option ?
             props.item.challange_option.map((item,index) => {
             console.log(props.item.challange_option,"this is item")
@@ -682,9 +682,10 @@ const ChallengeTypes = (props) => {
                 <div
                  style={{
                 backgroundColor:colors[index],
+                //backgroundColor:"grey",
                  borderRadius:"30px",
                  marginBottom:"10px",
-                 width:"450px",
+                 width:"520px",
                  margin:"10px",
                  border:"3px solid silver",
                  paddingLeft:"10px",

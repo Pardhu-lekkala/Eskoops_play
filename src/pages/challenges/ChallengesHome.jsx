@@ -10,7 +10,7 @@ import scrolltop from "../../static/images/scrolltop.png";
 import answered from "../../static/images/answered.png";
 import GoldIcon from "../../static/images/GoldIcon.png";
 import arrowDown from "../../static/images/arrow-down.gif";
-
+import { Pannellum } from "pannellum-react";
 import { history } from "../../routers/history";
 import Button from "@material-ui/core/Button";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
@@ -1186,7 +1186,8 @@ const Challenges = (props) => {
                 </Hidden> */}
 
                 {challengesData.map((item, i = 1) => {
-                  
+                  console.log(item.challenge_detail ,"html")
+                  console.log(challengesData,"chall data")
                   if (selectedBtn === 2 && challengesStatus[i] === "1") {
                     //Unanswered
                     //condition = false;
@@ -1282,6 +1283,7 @@ const Challenges = (props) => {
                                 <div
                                   dangerouslySetInnerHTML={
                                     !item.challenge_detail.includes("<video")
+                                    
                                       ? { __html: item.challenge_detail }
                                       : {
                                         __html: item.challenge_detail
@@ -1311,7 +1313,31 @@ const Challenges = (props) => {
                                         ? "luminosity"
                                         : "",
                                   }}
-                                ></div>
+                                >
+                                  {/* <Pannellum
+                                    id="panellum"                           
+                                    width="100%"
+                                    height="100vh"
+                                    image="https://pannellum.org/images/alma.jpg"
+                                    hotSpotDebug={true}                               
+                                    yaw={180}
+                                    hfov={110}
+                                    maxHfov={170}
+                                    minHfov={30}
+                                    autoLoad
+                                    autoRotate={2}
+                                    getViewer={true}
+                                    orientationOnByDefault={false}
+                                    mouseEventToCoords={true}
+                                    compass
+                                    draggable
+                                    keyboardZoom
+                                    mouseZoom
+                                    showControls
+                                    showFullscreenCtrl
+                                    showZoomCtrl
+                                  ></Pannellum> */}
+                                </div>
                                 {item.challenge_detail.includes("<img") ||
                                   item.challenge_detail.includes("<video") ? (
                                   <CardActions

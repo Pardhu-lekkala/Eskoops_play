@@ -617,7 +617,7 @@ const Profile = (props) => {
             {/* {openCamera  ? "" : <CameraAltIcon color="action" onClick={() => photoCamera()} />} */}
           </Typography>
           <Typography style={{ fontSize: "14px", marginTop: "24px" }}>
-          Name/Team Number.
+          Name/Team Number
           </Typography>
           <TextField
             id="outlined-basic"

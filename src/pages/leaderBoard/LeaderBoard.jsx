@@ -14,6 +14,7 @@ import Chip from "@material-ui/core/Chip"; */
 import auth from "../../services/auth";
 
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
+import { string } from "is_js";
 
 const LeaderBoard = (props) => {
   const theme = useTheme();
@@ -21,6 +22,19 @@ const LeaderBoard = (props) => {
   const [leaderboardData, setLeaderboardData] = React.useState([]);
   console.log(leaderboardData[1],"sss")
   //let val=leaderboardData[1]["current-state"].split("/")
+
+  function percentage(value){
+    console.log(value,"val")
+    let val=value.split("/")
+    console.log(val,"split")
+    let res=parseInt(val[0])/parseInt(val[1])*100
+    console.log(val,typeof(val))
+    console.log(res,"percent")
+    //return <p>{ `(${Math.round(res)}%)`}</p>
+    let percent=Math.round(res)
+    return String(percent)
+  
+   }
   
  function percentage1(){
   console.log((leaderboardData[1]["current-state"]),"data")
@@ -497,9 +511,12 @@ const LeaderBoard = (props) => {
                             fontSize: "14px",
                             paddingRight: !matches ? "20px" : "0px",
                           }}
-                        >
+                        > 
+                        <span style={{color:"#64db4f",fontSize:"12px"}}>
+                          {item["current-state"] !== undefined ?`(${percentage(item['current-state'])}%) `:"(0%) "}    
+                          </span>
                            <span style={{color:"orange",fontSize:"12px"}}>
-                          {item["current-state"] !== undefined ?`(${item['current-state']}) `:"(0) "}
+                          {item["current-state"] !== undefined ?`(${item['current-state']}) `:"(0) "}                               
                           </span>
                           {item.team_points} Pts
                         </Typography>
