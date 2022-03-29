@@ -35,6 +35,7 @@ import InfoIcon from "@material-ui/icons/Info";
 import MatchTheFollowing from "./matchthefollowing";
 import LeftList from "./matchthefollowing/LeftList";
 
+
 import Bowser from "bowser";
 import is from "is_js";
 
@@ -62,6 +63,30 @@ import is from "is_js";
 } */
 
 const useStyles = makeStyles((theme) => ({
+  radioBtn: {
+    backgroundColor: "#b7bab6",
+    borderRadius: "30px",
+    marginBottom: "10px",
+    width: "470px",
+    marginLeft: "5px",
+    border: "2px solid grey",
+    paddingLeft: "10px",
+    opacity: 0.8,
+    color: "black",
+    "@media (max-width: 480px)": {
+      backgroundColor: "#b7bab6",
+      borderRadius: "30px",
+      marginBottom: "10px",
+      fontSize:"10px",
+      width: "200px",
+      margin: "0px",
+      border: "2px solid grey",
+      paddingLeft: "10px",
+      opacity: 0.8,
+      color: "black",
+    }
+  },
+
   button: {
     marginTop: theme.spacing(1),
     width: "100%",
@@ -355,6 +380,7 @@ const ChallengeTypes = (props) => {
 
   //SUBMIT ANSWER
   const submitAnswer = async (challenge_id, game_id) => {
+    console.log('in one')
     setImageLoader(true);
     if (value) {
       let res = await auth.submitAnswer(
@@ -363,7 +389,20 @@ const ChallengeTypes = (props) => {
         game_id,
         props.panels[props.i]
       );
+      console.log(res);
       if (res.data !== undefined) {
+        if (res.statusCode === 401) {
+          props.setShowExpiredModal();
+        } else {
+          props.handleSetData();
+        }
+
+        if (res.data.game_challenges_total_points
+          && res.data.scored_points.total_points) {
+          props.setGameTotalPoints(res.data.game_challenges_total_points);
+          props.setScoredTotalPoints(res.data.scored_points.total_points);
+        }
+
         props.handlePanel(props.panels[props.i]);
         let newArr = [...props.challengesStatus];
         newArr[props.i] = "1";
@@ -402,6 +441,7 @@ const ChallengeTypes = (props) => {
 
   //SUBMIT ANSWER
   const submitRadioAnswer = async (challenge_id, game_id) => {
+    console.log('in two')
     setImageLoader(true);
     if (radioValue) {
       let res = await auth.submitAnswer(
@@ -410,7 +450,20 @@ const ChallengeTypes = (props) => {
         game_id,
         props.panels[props.i]
       );
+      console.log(res);
       if (res.data !== undefined) {
+        if (res.statusCode === 401) {
+          props.setShowExpiredModal();
+        } else {
+          props.handleSetData();
+        }
+
+        if (res.data.game_challenges_total_points
+          && res.data.scored_points.total_points) {
+          props.setGameTotalPoints(res.data.game_challenges_total_points);
+          props.setScoredTotalPoints(res.data.scored_points.total_points);
+        }
+
         setImageLoader(false);
         props.handlePanel(props.panels[props.i]);
         let newArr = [...props.challengesStatus];
@@ -449,10 +502,21 @@ const ChallengeTypes = (props) => {
 
   //SUBMIT ANSWER
   const submitImage = async (challenge_id, game_id) => {
+    console.log('in three')
     setImageLoader(true);
     console.log(picture);
     let res = await auth.submitImageAnswer(picture, challenge_id, game_id);
+
+    console.log(res);
     if (res.status === "true") {
+      props.handleSetData();
+
+      if (res.data.game_challenges_total_points
+        && res.data.scored_points.total_points) {
+        props.setGameTotalPoints(res.data.game_challenges_total_points);
+        props.setScoredTotalPoints(res.data.scored_points.total_points);
+      }
+
       let newArr = [...props.challengesStatus];
       newArr[props.i] = "1";
       props.setChallengesStatus(newArr);
@@ -489,12 +553,27 @@ const ChallengeTypes = (props) => {
     setImageLoader(true);
 
     if (checkedValues.length !== 0) {
+      console.log('in four')
       let res = await auth.submitAnswer(
         checkedValues.toString(),
         challenge_id,
         game_id
       );
+      console.log(res);
       if (res.data !== undefined) {
+        if (res.statusCode === 401) {
+          props.setShowExpiredModal();
+        } else {
+          props.handleSetData();
+        }
+        props.handleSetData();
+
+        if (res.data.game_challenges_total_points
+          && res.data.scored_points.total_points) {
+          props.setGameTotalPoints(res.data.game_challenges_total_points);
+          props.setScoredTotalPoints(res.data.scored_points.total_points);
+        }
+
         if (res.correct_type === "1" && res.correct_content) {
           setPopUpOpen({
             open: true,
@@ -533,11 +612,27 @@ const ChallengeTypes = (props) => {
 
   //SUBMIT ANSWER
   const handleMatchTheFollowingSubmit = async (challenge_id, game_id, data) => {
+
+    console.log('in five')
     setImageLoader(true);
 
     let res = await auth.submitAnswer(data, challenge_id, game_id);
 
+    console.log(res);
     if (res.data !== undefined) {
+      if (res.statusCode === 401) {
+        props.setShowExpiredModal();
+      } else {
+        props.handleSetData();
+      }
+      props.handleSetData();
+
+      if (res.data.game_challenges_total_points
+        && res.data.scored_points.total_points) {
+        props.setGameTotalPoints(res.data.game_challenges_total_points);
+        props.setScoredTotalPoints(res.data.scored_points.total_points);
+      }
+
       if (res.correct_type === "1" && res.correct_content) {
         setPopUpOpen({
           open: true,
@@ -567,7 +662,7 @@ const ChallengeTypes = (props) => {
       setImageLoader(false);
     }
   };
-  const colors=["#4081C3","#64D0C8","#9376CB","#E68C64","#D25C9E","#CE5754"]
+
   const deleteImage = () => {
     setImgData(null);
     setPicture(null);
@@ -648,8 +743,8 @@ const ChallengeTypes = (props) => {
                 lineHeight: "20px",
               }}
               onClick={props.handlePanel(props.panels[props.i])}
-              //onClick={props.handlePanel(props.panels[props.i])}
-              // onClick = { ()=>handleSubmit() }
+            //onClick={props.handlePanel(props.panels[props.i])}
+            // onClick = { ()=>handleSubmit() }
             >
               Cancel
             </Button>
@@ -659,7 +754,7 @@ const ChallengeTypes = (props) => {
     );
   } else if (props.item.challange_type === "radio") {
     return (
-      <div style={{ marginLeft: "1%", width: "100%",display:"flex",flexDirection:"row",justifyContent:"center", flexWrap:"wrap",width:"100%"}}>
+      <div style={{ marginLeft: "1%", width: "100%" }}>
         {/* <Typography>{props.item.challenge_detail.split('<p>')[1].split('</p>')[0]}</Typography> */}
         {/* <div dangerouslySetInnerHTML={{__html: props.item.challenge_detail}}></div> */}
         <FormControl component="fieldset" error={errorRadio}>
@@ -671,45 +766,50 @@ const ChallengeTypes = (props) => {
             onChange={(event) =>
               handleChange(event, props.item.challenge_id, props.item.game_id)
             }
-          >
             
-            <div style={{display:"flex",flexDirection:"row",justifyContent:"center", flexWrap:"wrap",width:"100%"}}>
-            { props.item.challange_option ?
-            props.item.challange_option.map((item,index) => {
-            console.log(props.item.challange_option,"this is item")
-            console.log(index,"this is index")
-              return ( 
-                <div
-                 style={{
-                backgroundColor:colors[index],
-                //backgroundColor:"grey",
-                 borderRadius:"30px",
-                 marginBottom:"10px",
-                 width:"520px",
-                 margin:"10px",
-                 border:"3px solid silver",
-                 paddingLeft:"10px",
-                 opacity: 0.8,
-                 color:"black"}}>
-                <FormControlLabel
-                  value={parseInt(item.option_id)}
-                  control={<Radio />}
-                  label={item.option_content}
-                />
-                </div> 
-              );
-            }) : ""
-
-
-          }
-          </div>
-          
+          >
+             <div
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "center",
+                flexWrap: "wrap",
+                width: "100%",
+              }}
+            >
+            {props.item.challange_option
+              ? props.item.challange_option.map((item) => {
+                return ( 
+                  <FormControlLabel
+                    value={parseInt(item.option_id)}
+                    control={<Radio style={{color:"#eb6009"}}/>}
+                    label={item.option_content}
+                    className={classes.radioBtn}
+                    
+                    // style={{
+                    //   //backgroundColor: colors[index],
+                    //   backgroundColor:"#b7bab6",
+                    //   borderRadius: "30px",
+                    //   marginBottom: "10px",
+                    //   width: "450px",
+                    //   margin: "10px",
+                    //   border: "2px solid grey",
+                    //   paddingLeft: "10px",
+                    //   opacity: 0.8,
+                    //   color: "black",
+                    // }}
+                  />
+                  
+                );
+              })
+              : ""}
+              </div>
           </RadioGroup>
           <FormHelperText>
             {errorRadio ? "Please select an option" : ""}
           </FormHelperText>
         </FormControl>
-        <Grid container spacing={2} style={{display:"flex",justifyContent:"center"}}>
+        <Grid container spacing={2}  style={{ display: "flex", justifyContent: "center" }}>
           <Grid item>
             {" "}
             <Button
@@ -759,7 +859,7 @@ const ChallengeTypes = (props) => {
                 lineHeight: "20px",
               }}
               onClick={props.handlePanel(props.panels[props.i])}
-              // onClick = { ()=>handleSubmit() }
+            // onClick = { ()=>handleSubmit() }
             >
               Cancel
             </Button>
@@ -778,21 +878,9 @@ const ChallengeTypes = (props) => {
           error={errorCheckbox}
         >
           {/* <FormLabel component="legend">Assign responsibility</FormLabel> */}
-          <FormGroup>
-          <div style={{display:"flex",flexDirection:"row",flexWrap:"wrap",width:"800px"}}>
-            {props.item.challange_option.map((item,index) => {
+          <FormGroup>    
+            {props.item.challange_option.map((item) => {
               return (
-                <div
-                 style={{
-                backgroundColor:colors[index],
-                 borderRadius:"30px",
-                 marginBottom:"10px",
-                 width:"330px",
-                 margin:"10px",
-                 border:"3px solid silver",
-                 paddingLeft:"10px",
-                 opacity: 0.8,
-                 color:"black"}}>
                 <FormControlLabel
                   control={
                     <Checkbox
@@ -808,10 +896,9 @@ const ChallengeTypes = (props) => {
                   }
                   label={item.option_content}
                 />
-                </div>
               );
             })}
-            </div>
+           
           </FormGroup>
           <FormHelperText>
             {errorCheckbox ? "Please select atleast one option" : ""}
@@ -868,7 +955,7 @@ const ChallengeTypes = (props) => {
                 lineHeight: "20px",
               }}
               onClick={props.handlePanel(props.panels[props.i])}
-              // onClick = { ()=>handleSubmit() }
+            // onClick = { ()=>handleSubmit() }
             >
               Cancel
             </Button>
@@ -1013,22 +1100,22 @@ const ChallengeTypes = (props) => {
                 style={
                   props.challengesStatus[props.i] === "1"
                     ? {
-                        color: "rgba(0, 0, 0, 0.26)",
-                        boxShadow: "none",
-                        backgroundColor: "rgba(0, 0, 0, 0.12)",
-                        marginTop: "10px",
-                        textTransform: "capitalize",
-                        fontSize: "14px",
-                        lineHeight: "20px",
-                      }
+                      color: "rgba(0, 0, 0, 0.26)",
+                      boxShadow: "none",
+                      backgroundColor: "rgba(0, 0, 0, 0.12)",
+                      marginTop: "10px",
+                      textTransform: "capitalize",
+                      fontSize: "14px",
+                      lineHeight: "20px",
+                    }
                     : {
-                        background: "#FE7300",
-                        color: "white",
-                        marginTop: "10px",
-                        textTransform: "capitalize",
-                        fontSize: "14px",
-                        lineHeight: "20px",
-                      }
+                      background: "#FE7300",
+                      color: "white",
+                      marginTop: "10px",
+                      textTransform: "capitalize",
+                      fontSize: "14px",
+                      lineHeight: "20px",
+                    }
                 }
                 disabled={props.challengesStatus[props.i] === "1" ? true : ""}
                 onClick={() => {
@@ -1057,16 +1144,16 @@ const ChallengeTypes = (props) => {
                 style={
                   props.challengesStatus[props.i] === "1"
                     ? {
-                        color: "rgba(0, 0, 0, 0.26)",
-                        boxShadow: "none",
-                        backgroundColor: "rgba(0, 0, 0, 0.12)",
-                        marginTop: "10px",
-                      }
+                      color: "rgba(0, 0, 0, 0.26)",
+                      boxShadow: "none",
+                      backgroundColor: "rgba(0, 0, 0, 0.12)",
+                      marginTop: "10px",
+                    }
                     : {
-                        background: "#FE7300",
-                        color: "white",
-                        marginTop: "10px",
-                      }
+                      background: "#FE7300",
+                      color: "white",
+                      marginTop: "10px",
+                    }
                 }
               >
                 <img
@@ -1177,7 +1264,7 @@ const ChallengeTypes = (props) => {
                   lineHeight: "20px",
                 }}
                 onClick={() => handleClickOpen()}
-                // onClick = { ()=>handleSubmit() }
+              // onClick = { ()=>handleSubmit() }
               >
                 Upload from Camera
               </Button>
@@ -1199,7 +1286,7 @@ const ChallengeTypes = (props) => {
                 lineHeight: "20px",
               }}
               onClick={props.handlePanel(props.panels[props.i])}
-              // onClick = { ()=>handleSubmit() }
+            // onClick = { ()=>handleSubmit() }
             >
               Cancel
             </Button>

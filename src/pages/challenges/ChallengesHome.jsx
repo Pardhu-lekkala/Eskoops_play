@@ -10,7 +10,7 @@ import scrolltop from "../../static/images/scrolltop.png";
 import answered from "../../static/images/answered.png";
 import GoldIcon from "../../static/images/GoldIcon.png";
 import arrowDown from "../../static/images/arrow-down.gif";
-import { Pannellum } from "pannellum-react";
+
 import { history } from "../../routers/history";
 import Button from "@material-ui/core/Button";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
@@ -242,6 +242,7 @@ const Challenges = (props) => {
     open: false,
     data: "<p>TEST</p>",
   });
+  console.log(popUpOpen,"pop up")
   const [gameType, setGameType] = React.useState("solo");
   //popUpTeamOpen={poppopUpTeamOpenTeamOpen} setPopUpTeamOpen={setPopUpTeamOpen}
   const [popUpTeamOpen, setPopUpTeamOpen] = React.useState({
@@ -256,7 +257,6 @@ const Challenges = (props) => {
 
   const [challengeScroll, setChallengeScroll] = React.useState(0);
   const [wallOfFameScroll, setWallOfFameScroll] = React.useState(0);
-  
 
   const [open, setOpen] = React.useState(false);
   const handleClose = () => {
@@ -319,6 +319,7 @@ const Challenges = (props) => {
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down("md"));
   const matchesSmall = useMediaQuery(theme.breakpoints.down("sm"));
+  console.log(matches,"matches")
   /*   useEffect(() => {
     (async function () {
       setOpen(true);
@@ -1107,6 +1108,7 @@ const Challenges = (props) => {
                     position: "fixed",
                     top: 60,
                     zIndex: 100,
+                   
                   }}
                   justify="center"
                 >
@@ -1186,8 +1188,6 @@ const Challenges = (props) => {
                 </Hidden> */}
 
                 {challengesData.map((item, i = 1) => {
-                  console.log(item.challenge_detail ,"html")
-                  console.log(challengesData,"chall data")
                   if (selectedBtn === 2 && challengesStatus[i] === "1") {
                     //Unanswered
                     //condition = false;
@@ -1198,7 +1198,7 @@ const Challenges = (props) => {
                     return <></>;
                   }
                   return (
-                    <Grid item md={12} style={{ width: "100%" }}>
+                    <Grid item md={12} style={{ width: "85%"}}>
                       <Accordion
                         expanded={expanded === panels[i]}
                         onChange={
@@ -1211,8 +1211,9 @@ const Challenges = (props) => {
                         classes={{ root: classes.MuiAccordionroot }}
                         //className="challegesRoot"
                         style={{
-                          maxWidth: "100%",
                           //maxWidth: 1045,
+                          //height:"70%",
+                          width: "80%",
                           margin: "0px auto",
                           //background:item.challenge_points === "0" ? "#FE7300" : "",
                           border:
@@ -1228,6 +1229,7 @@ const Challenges = (props) => {
                               position: "absolute",
                               right: "15px",
                               bottom: "0px",
+                             
                             },
                           }}
                           expandIcon={
@@ -1251,8 +1253,9 @@ const Challenges = (props) => {
                           ) : (
                             <></>
                           )}
-
-                          <Card elevation={0} style={{ width: "100%" }}>
+                          
+                          <Card elevation={0} style={{ width: "100%",height:"px"}}>
+                            {console.log( item.challenge_detail,"challenge type")}
                             {!(
                               item.challenge_detail.includes("<img") ||
                               item.challenge_detail.includes("<video")
@@ -1283,8 +1286,20 @@ const Challenges = (props) => {
                                 <div
                                   dangerouslySetInnerHTML={
                                     !item.challenge_detail.includes("<video")
-                                    
-                                      ? { __html: item.challenge_detail }
+                                      ? { __html: item.challenge_detail 
+                                        .replace(
+                                          "<img",
+                                          `<img style="width: 100%;height: 50vh; ${!matchesSmall
+                                            ? ""
+                                            : "height: 20vh;width:100%;"
+                                          }"`
+                                        )
+                                        .replace(
+                                          "<p",
+                                          `<p style="${!matches ? "" : "margin: 0px;"
+                                          }"`
+                                        )
+                                      }
                                       : {
                                         __html: item.challenge_detail
                                           .replace(
@@ -1314,29 +1329,7 @@ const Challenges = (props) => {
                                         : "",
                                   }}
                                 >
-                                  {/* <Pannellum
-                                    id="panellum"                           
-                                    width="100%"
-                                    height="100vh"
-                                    image="https://pannellum.org/images/alma.jpg"
-                                    hotSpotDebug={true}                               
-                                    yaw={180}
-                                    hfov={110}
-                                    maxHfov={170}
-                                    minHfov={30}
-                                    autoLoad
-                                    autoRotate={2}
-                                    getViewer={true}
-                                    orientationOnByDefault={false}
-                                    mouseEventToCoords={true}
-                                    compass
-                                    draggable
-                                    keyboardZoom
-                                    mouseZoom
-                                    showControls
-                                    showFullscreenCtrl
-                                    showZoomCtrl
-                                  ></Pannellum> */}
+                                  
                                 </div>
                                 {item.challenge_detail.includes("<img") ||
                                   item.challenge_detail.includes("<video") ? (
@@ -1386,7 +1379,7 @@ const Challenges = (props) => {
                                 >
                                   <Grid
                                     container
-                                    spacing={1}
+                                    spacing={0}
                                     alignItems="center"
                                   >
                                     <Grid item>
@@ -1409,6 +1402,7 @@ const Challenges = (props) => {
                               </Grid>
                             )}
                           </Card>
+                          
                         </AccordionSummary>
                         <AccordionDetails>
                           {/* {expanded === panels[i] && (
@@ -1673,3 +1667,18 @@ const Challenges = (props) => {
 };
 
 export default Challenges;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
