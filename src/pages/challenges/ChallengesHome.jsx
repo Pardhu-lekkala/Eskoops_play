@@ -1668,7 +1668,7 @@ const Challenges = (props) => {
         popUpMTFOpen={popUpMTFOpen}
         setPopUpMTFOpen={setPopUpMTFOpen}
       />
-      {nextQstn.isTrue===false?<Dialog
+      {showSubmitFirstModal===true?<Dialog
         open={showSubmitFirstModal}
         onClose={() => setShowSubmitFirstModal(false)}
       >
