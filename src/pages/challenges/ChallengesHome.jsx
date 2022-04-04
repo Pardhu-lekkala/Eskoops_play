@@ -242,6 +242,10 @@ const Challenges = (props) => {
     open: false,
     data: "<p>TEST</p>",
   });
+  const [nextQstn, setNextQstn] = React.useState({
+    isTrue:false  
+  });
+  console.log(nextQstn.isTrue,"next qstn")
   console.log(popUpOpen,"pop up")
   const [gameType, setGameType] = React.useState("solo");
   //popUpTeamOpen={poppopUpTeamOpenTeamOpen} setPopUpTeamOpen={setPopUpTeamOpen}
@@ -332,6 +336,7 @@ const Challenges = (props) => {
   const [errorText, setErrorText] = useState("Some thing went wrong!");
 
   const [myRank, setMyRank] = useState(null);
+
 
   useEffect(() => { console.log('challenge page: ', challengePage, ' current answering: ', currentlyAnswering) }, [challengePage, currentlyAnswering]);
 
@@ -438,6 +443,7 @@ const Challenges = (props) => {
         setChallengePage(challengePage + 1);
         setShowLoader(false);
         setCurrentlyAnswering(currentlyAnswering + 1);
+        scrollToGrid()
       }
     } else if (challengeType === '4-by-4') {
       let challengeNumber = challengePage;
@@ -455,6 +461,7 @@ const Challenges = (props) => {
       setChallengePage(challengeNumber)
       setchallengesData([...challengesData, ...tempArray]);
       setShowLoader(false);
+      //scrollBottom()
     }
   };
 
@@ -577,6 +584,32 @@ const Challenges = (props) => {
   function topFunction() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
+
+  function scrollToGrid() {
+    window.scrollTo(0, document.body.scrollHeight);
+  }
+  useEffect(() => {
+    if(nextQstn.isTrue===true){
+      if (challengeType === '1-by-1') {
+        if (challengesArrayData.length !== currentlyAnswering
+          && (challengesArrayData[parseInt(challengePage - 1)].challenge_submitted === '1'
+            || challengesArrayData[parseInt(currentlyAnswering)].total_points === '0')) {
+          getNextChallenge();
+          setShowLoader(true);
+          setNextQstn(false);
+        } else {
+          // complete the challenge first
+          setShowSubmitFirstModal(true);
+        }
+      } else if (challengeType === '4-by-4') {
+        getNextChallenge();
+        setShowLoader(true);
+        setNextQstn(false);
+      }
+    }
+  });
+
+  
 
   return (
     <div className="allRoot">
@@ -1200,7 +1233,7 @@ const Challenges = (props) => {
                   return (
                     <Grid item md={12} style={{ width: "85%"}}>
                       <Accordion
-                        expanded={expanded === panels[i]}
+                        expanded={expanded === panels[i]||(challengesStatus[i] === "0"&& item.challenge_detail.includes("<img"))}
                         onChange={
                           item.challenge_points === "0"
                             ? ""
@@ -1256,6 +1289,7 @@ const Challenges = (props) => {
                           
                           <Card elevation={0} style={{ width: "100%",height:"px"}}>
                             {console.log( item.challenge_detail,"challenge type")}
+                            
                             {!(
                               item.challenge_detail.includes("<img") ||
                               item.challenge_detail.includes("<video")
@@ -1624,7 +1658,7 @@ const Challenges = (props) => {
         ""
       )}
 
-      <ShowAnswerDialog popUpOpen={popUpOpen} setPopUpOpen={setPopUpOpen} />
+      <ShowAnswerDialog popUpOpen={popUpOpen} setPopUpOpen={setPopUpOpen} setNextQstn={setNextQstn} nextQstn={nextQstn}/>
       <ShowTeamDialog
         popUpTeamOpen={popUpTeamOpen}
         setPopUpTeamOpen={setPopUpTeamOpen}
@@ -1634,7 +1668,7 @@ const Challenges = (props) => {
         popUpMTFOpen={popUpMTFOpen}
         setPopUpMTFOpen={setPopUpMTFOpen}
       />
-      <Dialog
+      {nextQstn.isTrue===false?<Dialog
         open={showSubmitFirstModal}
         onClose={() => setShowSubmitFirstModal(false)}
       >
@@ -1646,7 +1680,7 @@ const Challenges = (props) => {
             Okay
           </Button>
         </DialogActions>
-      </Dialog>
+      </Dialog>:null}
       <TimeLeft userLoginTime={userLoggedInTime} gameDuration={gameDuration} />
       <ScoredByTotal {...{ gameTotalPoints, scoredTotalPoints }} />
       <Dialog
