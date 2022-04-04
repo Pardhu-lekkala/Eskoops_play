@@ -47,7 +47,7 @@ import ShowTeamDialog from "./ShowTeamDialog";
 import ShowMatchTheFollowingDialog from "./ShowMatchTheFollowingDialog";
 import TimeLeft from './TimeLeft';
 import ScoredByTotal from './ScoredByTotal';
-import FirebaseData from "../firebase";
+//import FirebaseData from "../firebase";
 import { windows } from "is_js";
 
 function Alert(props) {
@@ -1576,7 +1576,7 @@ const Challenges = (props) => {
                   </Grid>
                 </Grid>
               </Grid>
-              <FirebaseData />
+             
             </div>
           )}
         </>
