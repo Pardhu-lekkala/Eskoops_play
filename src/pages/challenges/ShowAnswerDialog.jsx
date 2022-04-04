@@ -53,9 +53,11 @@ const DialogActions = withStyles((theme) => ({
   },
 }))(MuiDialogActions);
 
-export default function CustomizedDialogs({ popUpOpen, setPopUpOpen }) {
+export default function CustomizedDialogs({ popUpOpen, setPopUpOpen,nextQstn,setNextQstn}) {
+  //const [nextQstn,setNextQstn]=React.useState(false);
   const handleClose = () => {
-    setPopUpOpen({ ...popUpOpen, open: false });
+    setPopUpOpen({ ...popUpOpen, open: false,nextQstn:true });
+    setNextQstn({...nextQstn,isTrue:true})
   };
 
   return (
@@ -70,7 +72,7 @@ export default function CustomizedDialogs({ popUpOpen, setPopUpOpen }) {
         </DialogContent>
         <DialogActions>
           <Button autoFocus onClick={handleClose} color="primary">
-            Close
+            Next Question
           </Button>
         </DialogActions>
       </Dialog>
