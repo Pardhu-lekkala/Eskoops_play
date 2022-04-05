@@ -219,7 +219,7 @@ const Challenges = (props) => {
 
   const [challengesArrayData, setChallengesArrayData] = useState([]);
   const [currentlyAnswering, setCurrentlyAnswering] = useState(0);
-
+  console.log(challengesArrayData,"challenge array")
   const [value, setValue] = React.useState(0);
   const [challengesData, setchallengesData] = React.useState([]);
   const [challengesStatus, setChallengesStatus] = React.useState([]);
@@ -245,10 +245,10 @@ const Challenges = (props) => {
     data: "<p>TEST</p>",
   });
   const [nextQstn, setNextQstn] = React.useState({
-    isTrue: false
+    isTrue:false  
   });
-  console.log(nextQstn.isTrue, "next qstn")
-  console.log(popUpOpen, "pop up")
+  console.log(nextQstn.isTrue,"next qstn")
+  console.log(popUpOpen,"pop up")
   const [gameType, setGameType] = React.useState("solo");
   //popUpTeamOpen={poppopUpTeamOpenTeamOpen} setPopUpTeamOpen={setPopUpTeamOpen}
   const [popUpTeamOpen, setPopUpTeamOpen] = React.useState({
@@ -325,7 +325,7 @@ const Challenges = (props) => {
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down("md"));
   const matchesSmall = useMediaQuery(theme.breakpoints.down("sm"));
-  console.log(matches, "matches")
+  console.log(matches,"matches")
   /*   useEffect(() => {
     (async function () {
       setOpen(true);
@@ -338,7 +338,7 @@ const Challenges = (props) => {
   const [errorText, setErrorText] = useState("Some thing went wrong!");
 
   const [myRank, setMyRank] = useState(null);
-
+  
 
   useEffect(() => { console.log('challenge page: ', challengePage, ' current answering: ', currentlyAnswering) }, [challengePage, currentlyAnswering]);
 
@@ -588,13 +588,13 @@ const Challenges = (props) => {
   }
 
   function scrollToGrid() {
-    window.scrollTo(0, document.body.scrollHeight - window.screen.height - 50);
+    window.scrollTo(0, document.body.scrollHeight-window.screen.height-50);
     //window.scrollTo(0, 1200);
-    console.log(document.body.scrollHeight, "scroll ht")
-    console.log(window.screen.height, "scroll ht2")
+    console.log(document.body.scrollHeight,"scroll ht")
+    console.log(window.screen.height,"scroll ht2")
   }
   useEffect(() => {
-    if (nextQstn.isTrue === true) {
+    if(nextQstn.isTrue===true){
       if (challengeType === '1-by-1') {
         if (challengesArrayData.length !== currentlyAnswering
           && (challengesArrayData[parseInt(challengePage - 1)].challenge_submitted === '1'
@@ -614,7 +614,7 @@ const Challenges = (props) => {
     }
   });
 
-
+  
 
   return (
     <div className="allRoot">
@@ -824,7 +824,6 @@ const Challenges = (props) => {
                           </Tabs>
                         </Hidden>
                       </Grid>
-
                       <Grid
                         onClick={() => {
                           setShowNow("Profile");
@@ -1146,7 +1145,7 @@ const Challenges = (props) => {
                     position: "fixed",
                     top: 60,
                     zIndex: 100,
-
+                   
                   }}
                   justify="center"
                 >
@@ -1236,9 +1235,9 @@ const Challenges = (props) => {
                     return <></>;
                   }
                   return (
-                    <Grid item md={12} style={{ width: "85%" }}>
+                    <Grid item md={12} style={{ width: "85%"}}>
                       <Accordion
-                        expanded={expanded === panels[i] || (challengesStatus[i] === "0" && item.challenge_detail.includes("<img"))}
+                        expanded={expanded === panels[i]||(challengesStatus[i] === "0"&& item.challenge_detail.includes("<img"))}
                         onChange={
                           item.challenge_points === "0"
                             ? ""
@@ -1267,7 +1266,7 @@ const Challenges = (props) => {
                               position: "absolute",
                               right: "15px",
                               bottom: "0px",
-
+                             
                             },
                           }}
                           expandIcon={
@@ -1291,10 +1290,10 @@ const Challenges = (props) => {
                           ) : (
                             <></>
                           )}
-
-                          <Card elevation={0} style={{ width: "100%", height: "px" }}>
-                            {console.log(item.challenge_detail, "challenge type")}
-
+                          
+                          <Card elevation={0} style={{ width: "100%",height:"px"}}>
+                            {console.log( item.challenge_detail,"challenge type")}
+                            
                             {!(
                               item.challenge_detail.includes("<img") ||
                               item.challenge_detail.includes("<video")
@@ -1325,20 +1324,19 @@ const Challenges = (props) => {
                                 <div
                                   dangerouslySetInnerHTML={
                                     !item.challenge_detail.includes("<video")
-                                      ? {
-                                        __html: item.challenge_detail
-                                          .replace(
-                                            "<img",
-                                            `<img style="width: 100%;height: 50vh; ${!matchesSmall
-                                              ? ""
-                                              : "height: 20vh;width:100%;"
-                                            }"`
-                                          )
-                                          .replace(
-                                            "<p",
-                                            `<p style="${!matches ? "" : "margin: 0px;"
-                                            }"`
-                                          )
+                                      ? { __html: item.challenge_detail 
+                                        .replace(
+                                          "<img",
+                                          `<img style="width: 100%;height: 50vh; ${!matchesSmall
+                                            ? ""
+                                            : "height: 20vh;width:100%;"
+                                          }"`
+                                        )
+                                        .replace(
+                                          "<p",
+                                          `<p style="${!matches ? "" : "margin: 0px;"
+                                          }"`
+                                        )
                                       }
                                       : {
                                         __html: item.challenge_detail
@@ -1369,7 +1367,7 @@ const Challenges = (props) => {
                                         : "",
                                   }}
                                 >
-
+                                  
                                 </div>
                                 {item.challenge_detail.includes("<img") ||
                                   item.challenge_detail.includes("<video") ? (
@@ -1442,7 +1440,7 @@ const Challenges = (props) => {
                               </Grid>
                             )}
                           </Card>
-
+                          
                         </AccordionSummary>
                         <AccordionDetails>
                           {/* {expanded === panels[i] && (
@@ -1576,7 +1574,7 @@ const Challenges = (props) => {
                   </Grid>
                 </Grid>
               </Grid>
-             
+              
             </div>
           )}
         </>
@@ -1665,7 +1663,7 @@ const Challenges = (props) => {
         ""
       )}
 
-      <ShowAnswerDialog popUpOpen={popUpOpen} setPopUpOpen={setPopUpOpen} setNextQstn={setNextQstn} nextQstn={nextQstn} />
+      <ShowAnswerDialog popUpOpen={popUpOpen} setPopUpOpen={setPopUpOpen} setNextQstn={setNextQstn} nextQstn={nextQstn} challengePage={challengePage} arrayLen={challengesArrayData.length} challengeType={challengeType}/>
       <ShowTeamDialog
         popUpTeamOpen={popUpTeamOpen}
         setPopUpTeamOpen={setPopUpTeamOpen}
@@ -1675,7 +1673,7 @@ const Challenges = (props) => {
         popUpMTFOpen={popUpMTFOpen}
         setPopUpMTFOpen={setPopUpMTFOpen}
       />
-      {showSubmitFirstModal === true ? <Dialog
+      {showSubmitFirstModal===true?<Dialog
         open={showSubmitFirstModal}
         onClose={() => setShowSubmitFirstModal(false)}
       >
@@ -1687,7 +1685,7 @@ const Challenges = (props) => {
             Okay
           </Button>
         </DialogActions>
-      </Dialog> : null}
+      </Dialog>:null}
       <TimeLeft userLoginTime={userLoggedInTime} gameDuration={gameDuration} />
       <ScoredByTotal {...{ gameTotalPoints, scoredTotalPoints }} />
       <Dialog

@@ -53,13 +53,18 @@ const DialogActions = withStyles((theme) => ({
   },
 }))(MuiDialogActions);
 
-export default function CustomizedDialogs({ popUpOpen, setPopUpOpen,nextQstn,setNextQstn}) {
+export default function CustomizedDialogs({ popUpOpen, setPopUpOpen,nextQstn,setNextQstn,challengePage,arrayLen,challengeType}) {
   //const [nextQstn,setNextQstn]=React.useState(false);
   const handleClose = () => {
     setPopUpOpen({ ...popUpOpen, open: false,nextQstn:true });
     setNextQstn({...nextQstn,isTrue:true})
   };
 
+  const handleCloseLast = () => {
+    setPopUpOpen({ ...popUpOpen, open: false });
+  };
+console.log(challengePage,"page in ans dailog")
+console.log(arrayLen,"array len in ans dailog")
   return (
     <div>
       <Dialog onClose={handleClose} open={popUpOpen.open} fullWidth maxWidth="sm">
@@ -71,9 +76,15 @@ export default function CustomizedDialogs({ popUpOpen, setPopUpOpen,nextQstn,set
           ></div>
         </DialogContent>
         <DialogActions>
-          <Button autoFocus onClick={handleClose} color="primary">
-            Next Question
-          </Button>
+        {challengePage!==arrayLen-1 && challengeType==="1-by-1"?<Button autoFocus onClick={handleClose} color="primary">
+           Next Question
+          </Button>:null}
+          {challengePage===arrayLen-1 && challengeType==="1-by-1"?<Button autoFocus onClick={handleCloseLast} color="primary">
+           Close
+          </Button>:null}
+          {challengeType==="4-by-4"?<Button autoFocus onClick={handleCloseLast} color="primary">
+           Close
+          </Button>:null}
         </DialogActions>
       </Dialog>
     </div>
